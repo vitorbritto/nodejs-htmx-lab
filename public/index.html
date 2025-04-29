@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Temperature Converter</title>
+  </head>
+  <body>
+    <div class="text-center">
+      <h1 class="text-4xl font-bold my-5">Temperature Converter</h1>
+      <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+        <form hx-post="/api/temperature" hx-target="#result" hx-indicator="#loading">
+          <div class="mb-4">
+            <input
+              type="number"
+              id="temperature"
+              name="temperature"
+              placeholder="Enter temperature"
+              class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div class="flex justify-between items-center mb-4">
+            <label class="inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                id="conversionDirection"
+                name="conversionDirection"
+                value="celsiusToFahrenheit"
+                class="sr-only peer"
+                onchange="updateDirectionLabel(this)"
+              />
+              <div
+                class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"
+              ></div>
+              <span id="directionLabel" class="ms-3 text-sm font-medium text-gray-900">F to C</span>
+            </label>
+            <button
+              type="submit"
+              class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
+            >
+              Convert
+            </button>
+          </div>
+        </form>
+        <div class="mt-4">
+          <p id="result" class="text-lg font-medium"></p>
+          <div id="loading" class="htmx-indicator">
+            <div class="flex justify-center items-center">
+              <div
+                class="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-blue-500"
+              ></div>
+              <p class="ml-2">Converting...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      function updateDirectionLabel(checkbox) {
+        const label = document.getElementById('directionLabel')
+        label.textContent = checkbox.checked ? 'C to F' : 'F to C'
+      }
+    </script>
+  </body>
+</html>
