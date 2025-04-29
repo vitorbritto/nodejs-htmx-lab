@@ -8,8 +8,29 @@
   <body>
     <div class="text-center">
       <h1 class="text-4xl font-bold my-5">Temperature Converter</h1>
+
+      <div
+        class="mt-4"
+        hx-get="/api/current-temperature"
+        hx-trigger="every 10s"
+        hx-target="#currentTemperature"
+        hx-indicator="#loadingCurrentTemperature"
+      >
+        <div class="text-xl gap-2 flex items-center justify-center">
+          Current temperature: <br />
+        </div>
+        <div id="currentTemperature" class="text-xl font-bold">20°C</div>
+        <div id="loadingCurrentTemperature" class="htmx-indicator">
+          <div class="flex justify-center items-center">
+            <div
+              class="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-blue-500"
+            ></div>
+            <p class="ml-2">Loading...</p>
+          </div>
+        </div>
+      </div>
       <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
-        <form hx-post="/api/temperature" hx-target="#result" hx-indicator="#loading">
+        <form hx-post="/api/convert-temperature" hx-target="#result" hx-indicator="#loading">
           <div class="mb-4">
             <input
               type="number"

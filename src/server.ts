@@ -7,7 +7,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.post('/api/temperature', async (req: Request, res: Response) => {
+app.post('/api/convert-temperature', async (req: Request, res: Response) => {
   const { temperature, conversionDirection } = req.body
   const result =
     conversionDirection === 'celsiusToFahrenheit'
@@ -22,6 +22,13 @@ app.post('/api/temperature', async (req: Request, res: Response) => {
       </p>
     </div>`,
   )
+})
+
+let currentTemperature = 20
+
+app.get('/api/current-temperature', async (req: Request, res: Response) => {
+  res.send(`<span class="text-xl font-bold">${currentTemperature}°C</span>`)
+  currentTemperature = parseFloat((currentTemperature + Math.random() * 2 - 1).toFixed(1))
 })
 
 app.listen(port, () => {
